@@ -2,7 +2,6 @@ import { type Habit } from "@/lib/types";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -33,7 +32,6 @@ export default function HabitCard({ habit, toggleHabitCompletion, deleteHabit }:
       <CardHeader className="flex-row items-start justify-between">
         <div className="flex-1 pr-4">
             <CardTitle>{habit.name}</CardTitle>
-            <CardDescription>Current week progress</CardDescription>
         </div>
         <AlertDialog>
           <AlertDialogTrigger asChild>
