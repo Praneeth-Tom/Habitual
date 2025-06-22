@@ -7,7 +7,7 @@ import {
 } from "@/components/ui/card";
 import HabitTracker from "@/components/HabitTracker";
 import { Button } from "@/components/ui/button";
-import { Pencil, X } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -50,7 +50,7 @@ export default function HabitCard({ habit, toggleHabitCompletion, deleteHabit, o
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0">
-                  <X className="h-4 w-4" />
+                  <Trash2 className="h-4 w-4" />
                   <span className="sr-only">Delete habit</span>
               </Button>
             </AlertDialogTrigger>
