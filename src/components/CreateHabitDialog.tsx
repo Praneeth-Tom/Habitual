@@ -13,13 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import type { Habit } from '@/lib/types';
 
 
@@ -43,13 +37,14 @@ const PREDEFINED_COLORS = [
 ];
 
 export const PREDEFINED_EMOJIS = [
-  "📖", "🛌", "💼", "🚲", "🏋️", "🍎", "❤️", "🧠", "💻", "🖊️", "🎵", "🎬", "😊",
+  "📖", "🛌", "💼", "🚲", "🏋️", "🍎", "❤️", "🧠", "💻", "🖊️", "🎵", "🎬", "😊", "🧘", "🎨", "✍️", "🏃", "💧", "💰", "🧹", "🌱"
 ];
 
 export function CreateHabitDialog({ addHabit, updateHabit, habitToEdit, isOpen, onOpenChange }: HabitDialogProps) {
   const [habitName, setHabitName] = useState("");
   const [selectedColor, setSelectedColor] = useState(PREDEFINED_COLORS[0]);
   const [selectedIcon, setSelectedIcon] = useState(PREDEFINED_EMOJIS[12]);
+  const [isIconPickerOpen, setIsIconPickerOpen] = useState(false);
   
   const isEditMode = !!habitToEdit;
 
@@ -107,18 +102,31 @@ export function CreateHabitDialog({ addHabit, updateHabit, habitToEdit, isOpen, 
                 Icon
               </Label>
               <div className="col-span-3">
-                <Select onValueChange={setSelectedIcon} value={selectedIcon}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select an emoji" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {PREDEFINED_EMOJIS.map((emoji) => (
-                      <SelectItem key={emoji} value={emoji}>
-                        {emoji}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Popover open={isIconPickerOpen} onOpenChange={setIsIconPickerOpen}>
+                  <PopoverTrigger asChild>
+                    <Button variant="outline" className="w-full justify-start text-2xl">
+                      {selectedIcon}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-2" align="start">
+                    <div className="grid grid-cols-7 gap-2">
+                      {PREDEFINED_EMOJIS.map((emoji) => (
+                        <Button
+                          key={emoji}
+                          variant={selectedIcon === emoji ? "default" : "outline"}
+                          size="icon"
+                          className="text-xl"
+                          onClick={() => {
+                            setSelectedIcon(emoji);
+                            setIsIconPickerOpen(false);
+                          }}
+                        >
+                          {emoji}
+                        </Button>
+                      ))}
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </div>
             </div>
 
