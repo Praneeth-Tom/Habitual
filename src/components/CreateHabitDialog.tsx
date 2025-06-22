@@ -15,7 +15,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Icon } from '@/components/Icon';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 
 type CreateHabitDialogProps = {
   addHabit: (name: string, color: string, icon: string) => void;
@@ -32,14 +39,14 @@ const PREDEFINED_COLORS = [
   "#facc15", // yellow-400
 ];
 
-const PREDEFINED_ICONS = [
-  "Book", "Bed", "Briefcase", "Bike", "Dumbbell", "Apple", "Heart", "Brain", "Code", "PenTool", "Music", "Film", "Smile",
+const PREDEFINED_EMOJIS = [
+  "📖", "🛌", "💼", "🚲", "🏋️", "🍎", "❤️", "🧠", "💻", "🖊️", "🎵", "🎬", "😊",
 ];
 
 export function CreateHabitDialog({ addHabit }: CreateHabitDialogProps) {
   const [habitName, setHabitName] = useState("");
   const [selectedColor, setSelectedColor] = useState(PREDEFINED_COLORS[0]);
-  const [selectedIcon, setSelectedIcon] = useState(PREDEFINED_ICONS[12]);
+  const [selectedIcon, setSelectedIcon] = useState(PREDEFINED_EMOJIS[12]);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSubmit = () => {
@@ -54,7 +61,7 @@ export function CreateHabitDialog({ addHabit }: CreateHabitDialogProps) {
       // Reset form on close
       setHabitName("");
       setSelectedColor(PREDEFINED_COLORS[0]);
-      setSelectedIcon(PREDEFINED_ICONS[12]);
+      setSelectedIcon(PREDEFINED_EMOJIS[12]);
     }
     setIsOpen(open);
   }
@@ -91,22 +98,19 @@ export function CreateHabitDialog({ addHabit }: CreateHabitDialogProps) {
               <Label className="text-right pt-2">
                 Icon
               </Label>
-              <div className="col-span-3 flex flex-wrap gap-3">
-                {PREDEFINED_ICONS.map((iconName) => (
-                  <button
-                    key={iconName}
-                    type="button"
-                    className={cn(
-                      "h-8 w-8 rounded-md flex items-center justify-center transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background",
-                      "bg-muted text-muted-foreground hover:bg-muted/80",
-                      selectedIcon === iconName && "ring-2 ring-ring ring-offset-2 ring-offset-background bg-accent text-accent-foreground"
-                    )}
-                    onClick={() => setSelectedIcon(iconName)}
-                    aria-label={`Select icon ${iconName}`}
-                  >
-                    <Icon name={iconName} className="h-5 w-5" />
-                  </button>
-                ))}
+              <div className="col-span-3">
+                <Select onValueChange={setSelectedIcon} defaultValue={selectedIcon}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select an emoji" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {PREDEFINED_EMOJIS.map((emoji) => (
+                      <SelectItem key={emoji} value={emoji}>
+                        {emoji}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 

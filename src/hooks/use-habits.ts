@@ -17,7 +17,7 @@ export function useHabits() {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const parsedHabits = JSON.parse(storedHabits).map((habit: any) => ({
             ...habit,
-            icon: habit.icon || 'Smile',
+            icon: habit.icon || '😊',
             color: habit.color || '#79b4b7' // Default color for habits stored before this change
         }));
         setHabits(parsedHabits);
