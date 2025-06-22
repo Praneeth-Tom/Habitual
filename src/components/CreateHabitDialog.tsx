@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -43,9 +42,6 @@ export function CreateHabitDialog({ addHabit }: CreateHabitDialogProps) {
       <DialogContent className="sm:max-w-[425px] acrylic">
         <DialogHeader>
           <DialogTitle>Create a new habit</DialogTitle>
-          <DialogDescription>
-            What's a new habit you want to cultivate? Give it a name to get started.
-          </DialogDescription>
         </DialogHeader>
         <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }}>
           <div className="grid gap-4 py-4">
