@@ -26,7 +26,7 @@ type HabitDialogProps = {
 };
 
 const PREDEFINED_COLORS = [
-  "#79b4b7", // primary
+  "#0d9eff", // primary
   "#987b96", // accent
   "#f87171", // red-400
   "#fb923c", // orange-400
