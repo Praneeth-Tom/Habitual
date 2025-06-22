@@ -42,7 +42,7 @@ const PREDEFINED_COLORS = [
   "#facc15", // yellow-400
 ];
 
-const PREDEFINED_EMOJIS = [
+export const PREDEFINED_EMOJIS = [
   "📖", "🛌", "💼", "🚲", "🏋️", "🍎", "❤️", "🧠", "💻", "🖊️", "🎵", "🎬", "😊",
 ];
 

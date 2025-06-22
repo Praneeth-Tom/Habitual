@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { type Habit } from '@/lib/types';
 import { format } from 'date-fns';
+import { PREDEFINED_EMOJIS } from '@/components/CreateHabitDialog';
 
 const STORAGE_KEY = 'habitual-habits';
 
@@ -15,11 +16,14 @@ export function useHabits() {
       const storedHabits = localStorage.getItem(STORAGE_KEY);
       if (storedHabits) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const parsedHabits = JSON.parse(storedHabits).map((habit: any) => ({
-            ...habit,
-            icon: habit.icon || '😊',
-            color: habit.color || '#79b4b7' // Default color for habits stored before this change
-        }));
+        const parsedHabits = JSON.parse(storedHabits).map((habit: any) => {
+            const isKnownEmoji = PREDEFINED_EMOJIS.includes(habit.icon);
+            return {
+                ...habit,
+                icon: isKnownEmoji ? habit.icon : '😊',
+                color: habit.color || '#79b4b7'
+            };
+        });
         setHabits(parsedHabits);
       }
     } catch (error) {
