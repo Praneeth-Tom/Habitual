@@ -39,19 +39,20 @@ export default function HabitTracker({ habit, toggleHabitCompletion }: HabitTrac
                     onClick={() => canToggle && toggleHabitCompletion(habit.id, day)}
                     className={cn(
                         "h-10 w-10 aspect-square rounded-md transition-colors",
-                        completed ? "bg-primary hover:bg-primary/90" : "bg-muted",
+                        !completed && "bg-muted",
                         canToggle && !completed && "hover:bg-muted/80",
                         today && "ring-2 ring-accent ring-offset-2 ring-offset-background",
                         !canToggle && "cursor-not-allowed",
                         future && "opacity-50"
                     )}
+                    style={completed ? { backgroundColor: habit.color } : {}}
                     aria-label={`Mark habit as ${completed ? 'not completed' : 'completed'} for ${format(day, 'MMMM do')}`}
                     >
                     </button>
                 </TooltipTrigger>
                 <TooltipContent>
                     <p className="font-medium">{format(day, 'MMMM d, yyyy')}</p>
-                    {completed && <p className="text-sm text-primary">Completed</p>}
+                    {completed && <p className="text-sm font-medium" style={{ color: habit.color }}>Completed</p>}
                     {today && !completed && <p className="text-sm text-muted-foreground">Click to complete</p>}
                 </TooltipContent>
                 </Tooltip>

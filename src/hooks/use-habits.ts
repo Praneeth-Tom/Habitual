@@ -14,7 +14,12 @@ export function useHabits() {
     try {
       const storedHabits = localStorage.getItem(STORAGE_KEY);
       if (storedHabits) {
-        setHabits(JSON.parse(storedHabits));
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const parsedHabits = JSON.parse(storedHabits).map((habit: any) => ({
+            ...habit,
+            color: habit.color || '#79b4b7' // Default color for habits stored before this change
+        }));
+        setHabits(parsedHabits);
       }
     } catch (error) {
       console.error("Failed to load habits from local storage", error);
@@ -32,11 +37,12 @@ export function useHabits() {
     }
   }, [habits, isLoaded]);
 
-  const addHabit = useCallback((name: string) => {
+  const addHabit = useCallback((name: string, color: string) => {
     if (name.trim() === '') return;
     const newHabit: Habit = {
       id: crypto.randomUUID(),
       name: name.trim(),
+      color,
       completed: {},
     };
     setHabits(prevHabits => [...prevHabits, newHabit]);
