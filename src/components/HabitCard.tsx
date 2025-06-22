@@ -34,7 +34,7 @@ type HabitCardProps = {
 export default function HabitCard({ habit, toggleHabitCompletion, deleteHabit, onEdit, isExpanded, onToggleExpand }: HabitCardProps) {
   return (
     <Card 
-      className={cn("flex flex-col transition-all hover:shadow-lg acrylic cursor-pointer")}
+      className={cn("group flex flex-col transition-all hover:shadow-lg acrylic cursor-pointer")}
       onClick={onToggleExpand}
     >
       <CardHeader className="flex-row items-start justify-between">
@@ -42,7 +42,7 @@ export default function HabitCard({ habit, toggleHabitCompletion, deleteHabit, o
             <span className="text-2xl h-6 w-6 flex items-center justify-center shrink-0">{habit.icon}</span>
             <CardTitle>{habit.name}</CardTitle>
         </div>
-        <div className="flex items-center space-x-1" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center space-x-1 md:opacity-0 group-hover:opacity-100 transition-opacity" onClick={(e) => e.stopPropagation()}>
           <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0" onClick={() => onEdit(habit)}>
             <Pencil className="h-4 w-4" />
             <span className="sr-only">Edit habit</span>
