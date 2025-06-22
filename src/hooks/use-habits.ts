@@ -17,6 +17,7 @@ export function useHabits() {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const parsedHabits = JSON.parse(storedHabits).map((habit: any) => ({
             ...habit,
+            icon: habit.icon || 'Smile',
             color: habit.color || '#79b4b7' // Default color for habits stored before this change
         }));
         setHabits(parsedHabits);
@@ -37,12 +38,13 @@ export function useHabits() {
     }
   }, [habits, isLoaded]);
 
-  const addHabit = useCallback((name: string, color: string) => {
+  const addHabit = useCallback((name: string, color: string, icon: string) => {
     if (name.trim() === '') return;
     const newHabit: Habit = {
       id: crypto.randomUUID(),
       name: name.trim(),
       color,
+      icon,
       completed: {},
     };
     setHabits(prevHabits => [...prevHabits, newHabit]);

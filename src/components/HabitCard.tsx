@@ -19,6 +19,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { Icon } from "@/components/Icon";
 
 type HabitCardProps = {
   habit: Habit;
@@ -30,7 +31,8 @@ export default function HabitCard({ habit, toggleHabitCompletion, deleteHabit }:
   return (
     <Card className="flex flex-col transition-all hover:shadow-lg">
       <CardHeader className="flex-row items-start justify-between">
-        <div className="flex-1 pr-4">
+        <div className="flex flex-1 items-center gap-3 pr-4">
+            <Icon name={habit.icon} className="h-6 w-6 shrink-0" style={{ color: habit.color }} />
             <CardTitle>{habit.name}</CardTitle>
         </div>
         <AlertDialog>

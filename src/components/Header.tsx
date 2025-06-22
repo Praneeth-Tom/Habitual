@@ -2,7 +2,7 @@ import { CreateHabitDialog } from "@/components/CreateHabitDialog";
 import { ModeToggle } from "./ModeToggle";
 
 type HeaderProps = {
-  addHabit: (name: string, color: string) => void;
+  addHabit: (name: string, color: string, icon: string) => void;
 };
 
 export default function Header({ addHabit }: HeaderProps) {

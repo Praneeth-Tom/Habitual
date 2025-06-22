@@ -8,16 +8,16 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Icon } from '@/components/Icon';
 
 type CreateHabitDialogProps = {
-  addHabit: (name: string, color: string) => void;
+  addHabit: (name: string, color: string, icon: string) => void;
 };
 
 const PREDEFINED_COLORS = [
@@ -31,14 +31,19 @@ const PREDEFINED_COLORS = [
   "#facc15", // yellow-400
 ];
 
+const PREDEFINED_ICONS = [
+  "Book", "Bed", "Briefcase", "Bike", "Dumbbell", "Apple", "Heart", "Brain", "Code", "PenTool", "Music", "Film", "Smile",
+];
+
 export function CreateHabitDialog({ addHabit }: CreateHabitDialogProps) {
   const [habitName, setHabitName] = useState("");
   const [selectedColor, setSelectedColor] = useState(PREDEFINED_COLORS[0]);
+  const [selectedIcon, setSelectedIcon] = useState(PREDEFINED_ICONS[12]);
   const [isOpen, setIsOpen] = useState(false);
 
   const handleSubmit = () => {
     if (habitName.trim()) {
-      addHabit(habitName.trim(), selectedColor);
+      addHabit(habitName.trim(), selectedColor, selectedIcon);
       setIsOpen(false);
     }
   };
@@ -48,6 +53,7 @@ export function CreateHabitDialog({ addHabit }: CreateHabitDialogProps) {
       // Reset form on close
       setHabitName("");
       setSelectedColor(PREDEFINED_COLORS[0]);
+      setSelectedIcon(PREDEFINED_ICONS[12]);
     }
     setIsOpen(open);
   }
@@ -78,6 +84,29 @@ export function CreateHabitDialog({ addHabit }: CreateHabitDialogProps) {
                 placeholder="e.g. Read for 15 minutes"
                 autoFocus
               />
+            </div>
+
+            <div className="grid grid-cols-4 items-start gap-4">
+              <Label className="text-right pt-2">
+                Icon
+              </Label>
+              <div className="col-span-3 flex flex-wrap gap-3">
+                {PREDEFINED_ICONS.map((iconName) => (
+                  <button
+                    key={iconName}
+                    type="button"
+                    className={cn(
+                      "h-8 w-8 rounded-md flex items-center justify-center transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background",
+                      "bg-muted text-muted-foreground hover:bg-muted/80",
+                      selectedIcon === iconName && "ring-2 ring-ring ring-offset-2 ring-offset-background bg-accent text-accent-foreground"
+                    )}
+                    onClick={() => setSelectedIcon(iconName)}
+                    aria-label={`Select icon ${iconName}`}
+                  >
+                    <Icon name={iconName} className="h-5 w-5" />
+                  </button>
+                ))}
+              </div>
             </div>
 
             <div className="grid grid-cols-4 items-center gap-4">
