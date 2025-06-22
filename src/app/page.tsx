@@ -7,12 +7,34 @@ import HabitGrid from "@/components/HabitGrid";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Habit } from "@/lib/types";
 import { CreateHabitDialog } from "@/components/CreateHabitDialog";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent
+} from '@dnd-kit/core';
+import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+
 
 export default function Home() {
-  const { habits, addHabit, toggleHabitCompletion, deleteHabit, updateHabit, isLoaded } = useHabits();
+  const { habits, addHabit, toggleHabitCompletion, deleteHabit, updateHabit, isLoaded, reorderHabits } = useHabits();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [habitToEdit, setHabitToEdit] = useState<Habit | null>(null);
   const [expandedHabitId, setExpandedHabitId] = useState<string | null>(null);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   const handleOpenCreate = () => {
     setHabitToEdit(null);
@@ -27,6 +49,14 @@ export default function Home() {
   const handleToggleExpand = (habitId: string) => {
     setExpandedHabitId(prevId => (prevId === habitId ? null : habitId));
   };
+  
+  function handleDragEnd(event: DragEndEvent) {
+    const {active, over} = event;
+    if (over && active.id !== over.id) {
+        reorderHabits(active.id as string, over.id as string);
+        setExpandedHabitId(null);
+    }
+  }
 
 
   return (
@@ -34,20 +64,26 @@ export default function Home() {
       <Header onAddHabit={handleOpenCreate} />
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         {!isLoaded ? (
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-start">
             {[...Array(4)].map((_, i) => (
               <CardSkeleton key={i} />
             ))}
           </div>
         ) : habits.length > 0 ? (
-          <HabitGrid
-            habits={habits}
-            toggleHabitCompletion={toggleHabitCompletion}
-            deleteHabit={deleteHabit}
-            onEdit={handleOpenEdit}
-            expandedHabitId={expandedHabitId}
-            onToggleExpand={handleToggleExpand}
-          />
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={handleDragEnd}
+          >
+            <HabitGrid
+              habits={habits}
+              toggleHabitCompletion={toggleHabitCompletion}
+              deleteHabit={deleteHabit}
+              onEdit={handleOpenEdit}
+              expandedHabitId={expandedHabitId}
+              onToggleExpand={handleToggleExpand}
+            />
+          </DndContext>
         ) : (
           <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm p-10 acrylic">
             <div className="flex flex-col items-center gap-1 text-center">

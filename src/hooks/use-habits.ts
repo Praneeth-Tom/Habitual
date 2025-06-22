@@ -21,7 +21,7 @@ export function useHabits() {
             return {
                 ...habit,
                 icon: isKnownEmoji ? habit.icon : '😊',
-                color: habit.color || '#79b4b7'
+                color: habit.color || '#ed201d'
             };
         });
         setHabits(parsedHabits);
@@ -86,5 +86,19 @@ export function useHabits() {
     );
   }, []);
 
-  return { habits, addHabit, toggleHabitCompletion, deleteHabit, isLoaded, updateHabit };
+  const reorderHabits = useCallback((activeId: string, overId: string) => {
+    setHabits((items) => {
+      const oldIndex = items.findIndex((item) => item.id === activeId);
+      const newIndex = items.findIndex((item) => item.id === overId);
+      if (oldIndex === -1 || newIndex === -1) {
+        return items;
+      }
+      const newItems = Array.from(items);
+      const [removed] = newItems.splice(oldIndex, 1);
+      newItems.splice(newIndex, 0, removed);
+      return newItems;
+    });
+  }, []);
+
+  return { habits, addHabit, toggleHabitCompletion, deleteHabit, isLoaded, updateHabit, reorderHabits };
 }
