@@ -41,7 +41,6 @@ export default function HabitTracker({ habit, toggleHabitCompletion }: HabitTrac
                         "h-10 w-10 aspect-square rounded-md transition-colors",
                         !completed && "bg-muted",
                         canToggle && !completed && "hover:bg-muted/80",
-                        today && "ring-2 ring-accent ring-offset-2 ring-offset-background",
                         !canToggle && "cursor-not-allowed",
                         future && "opacity-50"
                     )}
@@ -59,10 +58,21 @@ export default function HabitTracker({ habit, toggleHabitCompletion }: HabitTrac
             );
             })}
         </div>
-        <div className="mt-2 flex justify-between text-xs text-muted-foreground" aria-hidden="true">
-            {weekDays.map(day => (
-                <div key={format(day, 'E')} className="w-10 text-center">{format(day, 'E')}</div>
-            ))}
+        <div className="mt-2 flex justify-between text-xs" aria-hidden="true">
+            {weekDays.map(day => {
+                const today = isToday(day);
+                return (
+                    <div
+                        key={format(day, 'E')}
+                        className={cn(
+                            "w-10 text-center rounded-md py-0.5",
+                            today ? "bg-accent text-accent-foreground font-semibold" : "text-muted-foreground"
+                        )}
+                    >
+                        {format(day, 'E')}
+                    </div>
+                )
+            })}
         </div>
     </TooltipProvider>
   );
