@@ -83,8 +83,8 @@ export default function HabitCalendar({ habit, toggleHabitCompletion }: HabitCal
           })}
         </div>
       </TooltipProvider>
-      <div className="mt-4 p-3 rounded-lg bg-muted flex justify-between items-center">
-        <span className="font-semibold text-muted-foreground">Total</span>
+      <div className="mt-4 p-3 rounded-lg bg-[#2d2d2d] text-white flex justify-between items-center">
+        <span className="font-semibold text-white/80">Total</span>
         <span className="font-bold text-lg">{totalCompletions}</span>
       </div>
     </>
