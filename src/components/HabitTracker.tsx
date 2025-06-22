@@ -49,7 +49,7 @@ export default function HabitTracker({ habit, toggleHabitCompletion }: HabitTrac
                         missed && "bg-stripes",
                         canToggle && !completed && "hover:bg-muted/80",
                         !canToggle && "cursor-not-allowed",
-                        future && "opacity-50"
+                        (future || missed) && "opacity-50"
                     )}
                     style={completed ? { backgroundColor: habit.color } : {}}
                     aria-label={`Mark habit as ${completed ? 'not completed' : 'completed'} for ${format(day, 'MMMM do')}`}

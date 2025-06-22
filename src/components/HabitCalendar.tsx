@@ -61,7 +61,7 @@ export default function HabitCalendar({ habit, toggleHabitCompletion }: HabitCal
                     missed && "bg-stripes",
                     canToggle && !completed && "hover:bg-muted/80",
                     !canToggle && "cursor-not-allowed",
-                    future && "opacity-50",
+                    (future || missed) && "opacity-50",
                     today && "ring-2 ring-accent"
                   )}
                   style={completed ? { backgroundColor: habit.color } : {}}
