@@ -38,7 +38,10 @@ export default function HabitTracker({ habit, toggleHabitCompletion }: HabitTrac
                 <TooltipTrigger asChild>
                     <button
                     disabled={!canToggle}
-                    onClick={() => canToggle && toggleHabitCompletion(habit.id, day)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (canToggle) toggleHabitCompletion(habit.id, day);
+                    }}
                     className={cn(
                         "h-10 w-10 aspect-square rounded-md transition-colors flex items-center justify-center text-sm font-semibold",
                         completed ? "text-primary-foreground" : "text-muted-foreground",

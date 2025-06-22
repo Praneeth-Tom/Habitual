@@ -12,6 +12,7 @@ export default function Home() {
   const { habits, addHabit, toggleHabitCompletion, deleteHabit, updateHabit, isLoaded } = useHabits();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [habitToEdit, setHabitToEdit] = useState<Habit | null>(null);
+  const [expandedHabitId, setExpandedHabitId] = useState<string | null>(null);
 
   const handleOpenCreate = () => {
     setHabitToEdit(null);
@@ -22,6 +23,11 @@ export default function Home() {
     setHabitToEdit(habit);
     setIsDialogOpen(true);
   };
+
+  const handleToggleExpand = (habitId: string) => {
+    setExpandedHabitId(prevId => (prevId === habitId ? null : habitId));
+  };
+
 
   return (
     <div className="flex min-h-screen w-full flex-col">
@@ -39,6 +45,8 @@ export default function Home() {
             toggleHabitCompletion={toggleHabitCompletion}
             deleteHabit={deleteHabit}
             onEdit={handleOpenEdit}
+            expandedHabitId={expandedHabitId}
+            onToggleExpand={handleToggleExpand}
           />
         ) : (
           <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm p-10 acrylic">
