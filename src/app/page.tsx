@@ -9,7 +9,7 @@ export default function Home() {
   const { habits, addHabit, toggleHabitCompletion, deleteHabit, isLoaded } = useHabits();
 
   return (
-    <div className="flex min-h-screen w-full flex-col bg-background">
+    <div className="flex min-h-screen w-full flex-col">
       <Header addHabit={addHabit} />
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         {!isLoaded ? (
@@ -25,7 +25,7 @@ export default function Home() {
             deleteHabit={deleteHabit}
           />
         ) : (
-          <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm">
+          <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm p-10 acrylic">
             <div className="flex flex-col items-center gap-1 text-center">
               <h3 className="text-2xl font-bold tracking-tight">
                 You have no habits
@@ -43,7 +43,7 @@ export default function Home() {
 
 const CardSkeleton = () => (
     <div className="flex flex-col space-y-3">
-        <div className="flex flex-col rounded-lg border bg-card text-card-foreground shadow-sm p-6 pt-0">
+        <div className="flex flex-col rounded-lg border text-card-foreground shadow-sm p-6 pt-0 acrylic">
             <div className="flex flex-row items-start justify-between pt-6">
                 <div>
                     <Skeleton className="h-6 w-32 mb-2" />
