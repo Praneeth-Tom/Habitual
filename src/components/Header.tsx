@@ -14,7 +14,7 @@ export default function Header({ onAddHabit }: HeaderProps) {
         <h1 className="text-xl font-bold text-primary">Habitual</h1>
       </div>
       <div className="ml-auto flex items-center gap-2">
-        <Button onClick={onAddHabit} size="icon" aria-label="Add Habit">
+        <Button onClick={onAddHabit} variant="ghost" size="icon" aria-label="Add Habit">
           <Plus />
         </Button>
         <ModeToggle />
