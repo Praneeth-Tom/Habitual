@@ -26,14 +26,13 @@ type HabitDialogProps = {
 };
 
 const PREDEFINED_COLORS = [
-  "#0d9eff", // primary
-  "#987b96", // accent
-  "#f87171", // red-400
-  "#fb923c", // orange-400
-  "#4ade80", // green-400
-  "#60a5fa", // blue-400
-  "#a78bfa", // violet-400
-  "#facc15", // yellow-400
+  "#ed201d",
+  "#fd7941",
+  "#f4be40",
+  "#5ecc89",
+  "#4ca8df",
+  "#985df6",
+  "#b8b8b8",
 ];
 
 export const PREDEFINED_EMOJIS = [
