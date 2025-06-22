@@ -55,7 +55,7 @@ export default function HabitCard({ habit, toggleHabitCompletion, deleteHabit, o
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
       <Card 
-        className={cn("group flex flex-col transition-all hover:shadow-lg acrylic cursor-grab")}
+        className={cn("group flex flex-col transition-all duration-500 ease-in-out hover:shadow-lg acrylic cursor-grab")}
         onClick={onToggleExpand}
       >
         <CardHeader className="flex-row items-start justify-between">
@@ -94,11 +94,16 @@ export default function HabitCard({ habit, toggleHabitCompletion, deleteHabit, o
           </div>
         </CardHeader>
         <CardContent className="flex flex-1 flex-col justify-end">
-          {isExpanded ? (
-            <HabitCalendar habit={habit} toggleHabitCompletion={toggleHabitCompletion} />
-          ) : (
-            <HabitTracker habit={habit} toggleHabitCompletion={toggleHabitCompletion} />
-          )}
+          <div className={cn("grid transition-all duration-500 ease-in-out", isExpanded ? "grid-rows-[0fr] opacity-0" : "grid-rows-[1fr] opacity-100")}>
+              <div className="overflow-hidden">
+                  <HabitTracker habit={habit} toggleHabitCompletion={toggleHabitCompletion} />
+              </div>
+          </div>
+          <div className={cn("grid transition-all duration-500 ease-in-out", isExpanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0")}>
+              <div className="overflow-hidden">
+                  <HabitCalendar habit={habit} toggleHabitCompletion={toggleHabitCompletion} />
+              </div>
+          </div>
         </CardContent>
       </Card>
     </div>
