@@ -72,5 +72,15 @@ export function useHabits() {
     setHabits(prevHabits => prevHabits.filter(habit => habit.id !== habitId));
   }, []);
 
-  return { habits, addHabit, toggleHabitCompletion, deleteHabit, isLoaded };
+  const updateHabit = useCallback((id: string, name: string, color: string, icon: string) => {
+    setHabits(prevHabits =>
+      prevHabits.map(habit =>
+        habit.id === id
+          ? { ...habit, name: name.trim(), color, icon }
+          : habit
+      )
+    );
+  }, []);
+
+  return { habits, addHabit, toggleHabitCompletion, deleteHabit, isLoaded, updateHabit };
 }

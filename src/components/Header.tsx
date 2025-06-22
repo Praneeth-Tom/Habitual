@@ -1,11 +1,12 @@
-import { CreateHabitDialog } from "@/components/CreateHabitDialog";
+import { Button } from "@/components/ui/button";
 import { ModeToggle } from "./ModeToggle";
+import { Plus } from "lucide-react";
 
 type HeaderProps = {
-  addHabit: (name: string, color: string, icon: string) => void;
+  onAddHabit: () => void;
 };
 
-export default function Header({ addHabit }: HeaderProps) {
+export default function Header({ onAddHabit }: HeaderProps) {
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60 md:px-6">
       <div className="flex items-center gap-2">
@@ -13,7 +14,10 @@ export default function Header({ addHabit }: HeaderProps) {
         <h1 className="text-xl font-bold text-primary">Habitual</h1>
       </div>
       <div className="ml-auto flex items-center gap-2">
-        <CreateHabitDialog addHabit={addHabit} />
+        <Button onClick={onAddHabit}>
+          <Plus className="mr-2 h-4 w-4" />
+          Add Habit
+        </Button>
         <ModeToggle />
       </div>
     </header>

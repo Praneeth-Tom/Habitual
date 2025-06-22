@@ -1,16 +1,31 @@
 "use client";
 
+import { useState } from "react";
 import { useHabits } from "@/hooks/use-habits";
 import Header from "@/components/Header";
 import HabitGrid from "@/components/HabitGrid";
 import { Skeleton } from "@/components/ui/skeleton";
+import type { Habit } from "@/lib/types";
+import { CreateHabitDialog } from "@/components/CreateHabitDialog";
 
 export default function Home() {
-  const { habits, addHabit, toggleHabitCompletion, deleteHabit, isLoaded } = useHabits();
+  const { habits, addHabit, toggleHabitCompletion, deleteHabit, updateHabit, isLoaded } = useHabits();
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [habitToEdit, setHabitToEdit] = useState<Habit | null>(null);
+
+  const handleOpenCreate = () => {
+    setHabitToEdit(null);
+    setIsDialogOpen(true);
+  };
+
+  const handleOpenEdit = (habit: Habit) => {
+    setHabitToEdit(habit);
+    setIsDialogOpen(true);
+  };
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <Header addHabit={addHabit} />
+      <Header onAddHabit={handleOpenCreate} />
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         {!isLoaded ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -23,6 +38,7 @@ export default function Home() {
             habits={habits}
             toggleHabitCompletion={toggleHabitCompletion}
             deleteHabit={deleteHabit}
+            onEdit={handleOpenEdit}
           />
         ) : (
           <div className="flex flex-1 items-center justify-center rounded-lg border border-dashed shadow-sm p-10 acrylic">
@@ -36,6 +52,13 @@ export default function Home() {
             </div>
           </div>
         )}
+        <CreateHabitDialog
+          addHabit={addHabit}
+          updateHabit={updateHabit}
+          habitToEdit={habitToEdit}
+          isOpen={isDialogOpen}
+          onOpenChange={setIsDialogOpen}
+        />
       </main>
     </div>
   );
