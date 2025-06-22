@@ -15,6 +15,7 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import type { Habit } from '@/lib/types';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 
 type HabitDialogProps = {
@@ -36,7 +37,7 @@ const PREDEFINED_COLORS = [
 ];
 
 export const PREDEFINED_EMOJIS = [
-  "📖", "🛌", "💼", "🚲", "🏋️", "🍎", "❤️", "🧠", "💻", "🖊️", "🎵", "🎬", "😊", "🧘", "🎨", "✍️", "🏃", "💧", "💰", "🧹", "🌱"
+  "📖", "🛌", "💼", "🚲", "🏋️", "🍎", "❤️", "🧠", "💻", "🖊️", "🎵", "🎬", "😊", "🧘", "🎨", "✍️", "🏃", "💧", "💰", "🧹", "🌱", "🎉", "💡", "🔑", "🔒", "📞", "📈", "📉", "📊", "📎", "📌", "📍", "📅", "⏰", "⏳"
 ];
 
 export function CreateHabitDialog({ addHabit, updateHabit, habitToEdit, isOpen, onOpenChange }: HabitDialogProps) {
@@ -108,22 +109,24 @@ export function CreateHabitDialog({ addHabit, updateHabit, habitToEdit, isOpen, 
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-2" align="start">
-                    <div className="grid grid-cols-7 gap-2">
-                      {PREDEFINED_EMOJIS.map((emoji) => (
-                        <Button
-                          key={emoji}
-                          variant={selectedIcon === emoji ? "default" : "ghost"}
-                          size="icon"
-                          className="text-xl"
-                          onClick={() => {
-                            setSelectedIcon(emoji);
-                            setIsIconPickerOpen(false);
-                          }}
-                        >
-                          {emoji}
-                        </Button>
-                      ))}
-                    </div>
+                    <ScrollArea className="h-40">
+                      <div className="grid grid-cols-7 gap-2">
+                        {PREDEFINED_EMOJIS.map((emoji) => (
+                          <Button
+                            key={emoji}
+                            variant={selectedIcon === emoji ? "default" : "ghost"}
+                            size="icon"
+                            className="text-xl"
+                            onClick={() => {
+                              setSelectedIcon(emoji);
+                              setIsIconPickerOpen(false);
+                            }}
+                          >
+                            {emoji}
+                          </Button>
+                        ))}
+                      </div>
+                    </ScrollArea>
                   </PopoverContent>
                 </Popover>
               </div>
