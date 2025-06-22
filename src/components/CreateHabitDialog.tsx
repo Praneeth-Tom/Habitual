@@ -112,7 +112,7 @@ export function CreateHabitDialog({ addHabit, updateHabit, habitToEdit, isOpen, 
                       {PREDEFINED_EMOJIS.map((emoji) => (
                         <Button
                           key={emoji}
-                          variant={selectedIcon === emoji ? "default" : "outline"}
+                          variant={selectedIcon === emoji ? "default" : "ghost"}
                           size="icon"
                           className="text-xl"
                           onClick={() => {
