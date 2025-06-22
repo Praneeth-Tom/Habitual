@@ -1,7 +1,7 @@
 "use client";
 
 import { type Habit } from "@/lib/types";
-import { startOfWeek, eachDayOfInterval, format, isToday, isFuture, endOfWeek } from 'date-fns';
+import { startOfWeek, eachDayOfInterval, format, isToday, isFuture, endOfWeek, isPast } from 'date-fns';
 import { cn } from "@/lib/utils";
 import {
   Tooltip,
@@ -28,6 +28,8 @@ export default function HabitTracker({ habit, toggleHabitCompletion }: HabitTrac
             const completed = habit.completed[dateKey];
             const today = isToday(day);
             const future = isFuture(day);
+            const past = isPast(day) && !today;
+            const missed = past && !completed;
 
             const canToggle = today;
 
@@ -41,6 +43,7 @@ export default function HabitTracker({ habit, toggleHabitCompletion }: HabitTrac
                         "h-10 w-10 aspect-square rounded-md transition-colors flex items-center justify-center text-sm font-semibold",
                         completed ? "text-primary-foreground" : "text-muted-foreground",
                         !completed && "bg-muted",
+                        missed && "bg-stripes",
                         canToggle && !completed && "hover:bg-muted/80",
                         !canToggle && "cursor-not-allowed",
                         future && "opacity-50"
@@ -55,6 +58,7 @@ export default function HabitTracker({ habit, toggleHabitCompletion }: HabitTrac
                     <p className="font-medium">{format(day, 'MMMM d, yyyy')}</p>
                     {completed && <p className="text-sm font-medium" style={{ color: habit.color }}>Completed</p>}
                     {today && !completed && <p className="text-sm text-muted-foreground">Click to complete</p>}
+                    {missed && <p className="text-sm text-muted-foreground">Missed</p>}
                 </TooltipContent>
                 </Tooltip>
             );
