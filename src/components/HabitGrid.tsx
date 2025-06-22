@@ -12,7 +12,7 @@ type HabitGridProps = {
 
 export default function HabitGrid({ habits, toggleHabitCompletion, deleteHabit, onEdit, expandedHabitId, onToggleExpand }: HabitGridProps) {
   return (
-    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 items-start">
       {habits.map((habit) => (
         <HabitCard
           key={habit.id}
