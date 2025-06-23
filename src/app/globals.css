@@ -28,7 +28,8 @@ body {
     --input: 210 20% 88%;
     --ring: 207 100% 53%;
     --radius: 1rem;
-    --stripe: 0 0% 88%;
+    --stripe: 0 0% 90%;
+    --today-dot: 0 0% 18%; /* #2d2d2d */
   }
 
   .dark {
@@ -51,7 +52,8 @@ body {
     --border: 217 33% 17%;
     --input: 217 33% 17%;
     --ring: 207 100% 53%;
-    --stripe: 0 0% 70%;
+    --stripe: 0 0% 50%;
+    --today-dot: 210 40% 98%; /* foreground color */
   }
 
   * {

@@ -71,14 +71,20 @@ export default function HabitTracker({ habit, toggleHabitCompletion }: HabitTrac
             {weekDays.map(day => {
                 const today = isToday(day);
                 return (
-                    <div
-                        key={format(day, 'E')}
-                        className={cn(
-                            "w-10 text-center rounded-md py-0.5",
-                            today ? "bg-accent text-accent-foreground font-semibold" : "text-muted-foreground"
+                    <div key={format(day, 'E')} className="w-10 flex flex-col items-center">
+                        <div
+                            className={cn(
+                                "rounded-md py-0.5",
+                                today ? "font-semibold text-foreground" : "text-muted-foreground"
+                            )}
+                        >
+                            {format(day, 'E')}
+                        </div>
+                        {today ? (
+                            <div className="mt-0.5 h-1.5 w-1.5 rounded-full bg-[hsl(var(--today-dot))]"></div>
+                        ) : (
+                            <div className="mt-0.5 h-1.5 w-1.5"></div>
                         )}
-                    >
-                        {format(day, 'E')}
                     </div>
                 )
             })}
