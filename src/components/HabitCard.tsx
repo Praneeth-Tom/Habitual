@@ -58,7 +58,7 @@ export default function HabitCard({ habit, toggleHabitCompletion, deleteHabit, o
         className={cn("group flex flex-col transition-all duration-500 ease-in-out hover:shadow-lg acrylic cursor-grab")}
         onClick={onToggleExpand}
       >
-        <CardHeader className="flex-row items-start justify-between">
+        <CardHeader className="flex-row items-center justify-between">
           <div className="flex flex-1 items-center gap-3 pr-4">
               <span className="text-2xl h-6 w-6 flex items-center justify-center shrink-0">{habit.icon}</span>
               <CardTitle>{habit.name}</CardTitle>
