@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState } from 'react';
@@ -98,7 +97,7 @@ export default function HabitCalendar({ habit, toggleHabitCompletion }: HabitCal
                       "absolute inset-0 transition-opacity",
                        completed ? 'opacity-0' : 'opacity-100',
                        missed ? "bg-stripes" : "bg-muted",
-                       canToggle && !completed && "group-hover:bg-muted/80"
+                       canToggle && !completed && !missed && "group-hover:bg-muted/80"
                     )} />
                     <div
                       className="absolute inset-0 transition-[clip-path] duration-300 ease-in-out"
